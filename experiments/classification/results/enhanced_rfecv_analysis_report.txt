@@ -1,0 +1,23 @@
+MEKANET ENHANCED RFECV ANALYSIS REPORT
+================================================================================
+
+CORRELATION ANALYSIS:
+========================================
+High correlation pairs identified: 27
+Feature groups formed: 6
+
+BINARY_CLINICAL RESULTS:
+--------------------------------------------------
+Optimal feature count: 6 (most frequent)
+Mean optimal count: 4.8 ± 1.2
+Stability score: 0.757
+Mean accuracy: nan ± nan
+Top selected features: []
+
+MULTICLASS_CLINICAL RESULTS:
+--------------------------------------------------
+Optimal feature count: 2 (most frequent)
+Mean optimal count: 3.2 ± 1.6
+Stability score: 0.500
+Mean accuracy: nan ± nan
+Top selected features: []

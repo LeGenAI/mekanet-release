@@ -1,0 +1,50 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="mekanet",
+    version="1.0.0",
+    description="MekaNet: A deep learning framework for megakaryocyte detection and myeloproliferative neoplasm classification",
+    author="Byung-Sun Won, Young-eun Lee, Jae-Hyun Baek, Sang Mee Hwang, Jon-Lark Kim",
+    author_email="bswon@ewha.ac.kr",
+    url="https://github.com/username/mekanet",
+    packages=find_packages(),
+    install_requires=[
+        "torch>=1.9.0",
+        "torchvision>=0.10.0",
+        "ultralytics>=8.0.0",
+        "sahi>=0.11.0",
+        "opencv-python>=4.5.0",
+        "scikit-learn>=1.0.0",
+        "xgboost>=1.5.0",
+        "pandas>=1.3.0",
+        "numpy>=1.21.0",
+        "matplotlib>=3.4.0",
+        "seaborn>=0.11.0",
+        "scipy>=1.7.0",
+        "Pillow>=8.3.0",
+        "tqdm>=4.62.0",
+        "plotly>=5.0.0",
+    ],
+    extras_require={
+        "dev": [
+            "pytest>=6.0.0",
+            "black>=21.0.0",
+            "flake8>=3.9.0",
+            "jupyter>=1.0.0",
+            "notebook>=6.4.0",
+        ]
+    },
+    python_requires=">=3.8",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    ],
+    keywords="medical-ai, megakaryocyte, myeloproliferative-neoplasm, deep-learning, yolo, classification",
+)

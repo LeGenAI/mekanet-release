@@ -1,0 +1,28 @@
+# MekaNet Classification Experiments - Python Dependencies
+# ========================================================
+#
+# This file lists all required Python packages for running MekaNet
+# classification experiments. Install with: pip install -r requirements.txt
+#
+# Core scientific computing libraries
+numpy>=1.21.0
+pandas>=1.5.0
+scipy>=1.7.0
+
+# Machine learning framework
+scikit-learn>=1.0.0
+
+# Data visualization
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Statistical analysis (optional but recommended)
+statsmodels>=0.13.0
+
+# Parallel processing support (optional)
+joblib>=1.1.0
+
+# Development and testing (optional)
+# pytest>=6.0.0
+# jupyter>=1.0.0
+# ipython>=7.0.0 

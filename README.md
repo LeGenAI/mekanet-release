@@ -2,11 +2,11 @@
 
 <!-- Project Logo/Header -->
 <h1>
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=35&duration=4000&pause=500&color=FF6B6B&center=true&vCenter=true&width=900&height=70&lines=MekaNet%3A+Megakaryocyte+Detection;Deep+Learning+Framework;Enhanced+Feature+Extraction" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=35&duration=4000&pause=500&color=FF6B6B&center=true&vCenter=true&width=900&height=70&lines=MekaNet%3A+a+tiling-enhanced+semi-supervised+detection+framework;for+Megakaryocytes;TESSD+Framework" alt="Typing SVG" />
 </h1>
 
 <!-- Project Description -->
-<h3>🔬 A Deep Learning Framework for Megakaryocyte Detection and Myeloproliferative Neoplasm Classification with Enhanced Feature Extraction</h3>
+<h3>🔬 MekaNet: a tiling-enhanced semi-supervised detection framework for Megakaryocytes</h3>
 
 <!-- Key Achievement -->
 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 20px; margin: 20px 0; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);">
@@ -501,61 +501,6 @@ jupyter notebook demo_classification.ipynb
 
 ---
 
-## 📈 Detailed Results
-
-### 🎯 **Classification Performance Comparison**
-
-<div align="center">
-
-```mermaid
-gantt
-    title MekaNet Performance vs Conventional Methods
-    dateFormat X
-    axisFormat %
-    
-    section Binary Classification
-    MekaNet           :100, 0, 100
-    Conventional      :93, 0, 93
-    
-    section CALR-mutated Cases
-    MekaNet           :100, 0, 100
-    Baseline          :50, 0, 50
-    
-    section Triple-negative (F1-Score)
-    MekaNet           :86, 0, 86
-    Baseline          :71, 0, 71
-```
-
-</div>
-
-### 📊 **Feature Importance Analysis**
-
-<div align="center">
-
-| 🏆 **Rank** | 🔍 **Feature** | 📈 **Type** | 📝 **Clinical Significance** |
-|:---:|:---|:---:|:---|
-| **1** | PLT (Platelet Count) | Clinical | Key MPN diagnostic marker |
-| **2** | Avg_NND (Nearest Neighbor Distance) | Morphological | Megakaryocyte spatial distribution |
-| **3** | JAK2 Mutation Status | Genetic | Primary driver mutation |
-| **4** | Hb (Hemoglobin) | Clinical | Distinguishes PV from other MPNs |
-| **5** | Avg_Size | Morphological | Cell size morphology indicator |
-
-</div>
-
-### 🏥 **Clinical Validation Metrics**
-
-<div align="center">
-
-| 📊 **Clinical Metric** | 🩺 **Binary** | 🔬 **Multi-class** | 📝 **Clinical Impact** |
-|:---:|:---:|:---:|:---|
-| **🎯 Sensitivity** | **100%** | **90%** | Excellent disease detection |
-| **🛡️ Specificity** | **100%** | **High** | Low false positive rate |
-| **⚖️ PPV** | **100%** | **High** | Reliable positive predictions |
-| **📏 NPV** | **100%** | **High** | Reliable negative predictions |
-
-</div>
-
----
 
 ## 🔬 Clinical Applications
 

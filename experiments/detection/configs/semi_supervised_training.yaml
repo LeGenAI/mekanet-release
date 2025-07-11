@@ -1,0 +1,146 @@
+# Semi-Supervised Training Configuration
+# Settings for TESSD framework self-training with pseudo-labeling
+
+experiment:
+  name: "semi_supervised_training"
+  description: "Self-training approach for partially labeled megakaryocyte detection"
+  random_seed: 42
+  deterministic: true
+
+# Model configuration
+model:
+  initial_model_path: "../../weights/epoch60.pt"
+  architecture: "YOLOv8"
+
+# Semi-supervised training parameters
+training:
+  max_iterations: 5
+  initial_confidence_threshold: 0.20
+  pseudo_label_confidence: 0.80  # Minimum confidence for pseudo-labels
+  min_improvement: 0.01  # Minimum F1 improvement to continue training
+  validation_split: 0.2
+  iou_threshold: 0.5
+  early_stopping_patience: 2
+
+# Data configuration
+data:
+  labeled_data_dir: "/path/to/b_hospital/labeled_data"  # B hospital partially labeled
+  unlabeled_data_dir: "/path/to/b_hospital/unlabeled_data"  # B hospital unlabeled
+  validation_data_dir: "/path/to/s_hospital/validation_data"  # S hospital validation
+  
+  # Data format expectations
+  annotation_format: "YOLO"  # YOLO format: class_id x_center y_center width height
+  image_extensions: [".jpg", ".jpeg", ".png"]
+  
+  # Pseudo-labeling strategy
+  pseudo_labeling:
+    confidence_progression: true  # Gradually increase confidence threshold
+    confidence_start: 0.80
+    confidence_end: 0.95
+    confidence_step: 0.02
+    
+    # Quality filtering
+    max_detections_per_image: 50
+    min_detection_size: 100  # Minimum bounding box area
+    
+# SAHI configuration for pseudo-label generation
+sahi:
+  enabled: true
+  tile_size: 640
+  overlap_ratio: 0.2
+  postprocess_type: "NMS"
+  postprocess_match_metric: "IOS"
+  postprocess_match_threshold: 0.5
+
+# Data augmentation for training
+augmentation:
+  enabled: true
+  horizontal_flip: 0.5
+  vertical_flip: 0.2
+  rotation_limit: 15
+  brightness_limit: 0.2
+  contrast_limit: 0.2
+  gaussian_noise: 0.1
+  
+  # Spatial augmentations
+  scale_limit: 0.1
+  shift_limit: 0.1
+  
+  # Color augmentations
+  hue_shift_limit: 20
+  sat_shift_limit: 30
+  val_shift_limit: 20
+
+# Evaluation metrics
+evaluation:
+  metrics:
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "mAP@0.5"
+    - "mAP@0.75"
+  
+  # Cross-institutional validation
+  institutional_validation:
+    enabled: true
+    test_on_s_hospital: true
+    
+# Output configuration
+output:
+  base_dir: "./results/semi_supervised_training"
+  save_models: true
+  save_pseudo_labels: true
+  save_training_logs: true
+  save_visualizations: true
+  
+  # Specific outputs
+  model_checkpoints:
+    - "best_model.pt"
+    - "final_model.pt"
+    - "iteration_models/"  # Save model after each iteration
+    
+  reports:
+    - "training_history.csv"
+    - "pseudo_label_statistics.csv"
+    - "iteration_performance.png"
+    - "confidence_threshold_analysis.png"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  save_logs: true
+  log_file: "semi_supervised_training.log"
+  
+  # Progress tracking
+  log_pseudo_label_generation: true
+  log_training_iterations: true
+  log_evaluation_metrics: true
+
+# Reproducibility settings
+reproducibility:
+  pytorch_deterministic: true
+  numpy_seed: 42
+  python_hash_seed: 42
+  cuda_deterministic: true
+
+# Resource management
+resources:
+  device: "auto"  # auto, cpu, cuda
+  batch_size: 8
+  num_workers: 4
+  pin_memory: true
+  
+  # Memory optimization
+  gradient_accumulation_steps: 1
+  mixed_precision: false
+
+# Hyperparameter optimization (optional)
+hyperparameter_tuning:
+  enabled: false
+  parameters:
+    pseudo_label_confidence: [0.70, 0.75, 0.80, 0.85]
+    min_improvement: [0.005, 0.01, 0.02]
+    max_iterations: [3, 5, 7]
+  
+  optimization_metric: "f1_score"
+  search_strategy: "grid"  # grid, random, bayesian 

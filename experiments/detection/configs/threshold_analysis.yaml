@@ -1,0 +1,50 @@
+# Confidence Threshold Analysis Configuration
+# Based on threshold comparison experiments from SAHI1.ipynb
+
+experiment:
+  name: "threshold_analysis"
+  description: "Comprehensive confidence threshold analysis"
+  
+# Model configuration
+model:
+  path: "../../weights/epoch60.pt"
+  
+# Threshold analysis parameters
+threshold_analysis:
+  confidence_thresholds: [0.10, 0.15, 0.20, 0.25, 0.30]  # Extended range
+  primary_thresholds: [0.15, 0.20]  # Main comparison from notebook
+  
+  # Performance metrics to track
+  metrics:
+    - "num_detections"
+    - "avg_confidence" 
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "processing_time"
+
+# SAHI configuration
+sahi:
+  tile_size: 640
+  overlap_ratio: 0.2
+  
+# Test data
+data:
+  test_images: "../../data/demo_data"
+  ground_truth: null  # Optional if available
+  
+# Analysis settings
+analysis:
+  plot_confidence_curves: true
+  plot_detection_distribution: true
+  plot_processing_time: true
+  
+  # Statistical analysis
+  correlation_analysis: true
+  threshold_optimization: true
+  
+# Output
+output:
+  base_dir: "./results/threshold_analysis"
+  detailed_csv: true
+  comparison_plots: true 

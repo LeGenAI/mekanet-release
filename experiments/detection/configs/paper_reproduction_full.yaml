@@ -1,0 +1,127 @@
+# Paper Reproduction Configuration for TESSD Framework
+# Comprehensive experiment setup for reproducing paper results
+
+global_settings:
+  # Model configuration
+  model_path: "../../weights/epoch60.pt"
+  
+  # Output configuration
+  save_visualizations: true
+  save_detailed_results: true
+  
+  # Performance configuration
+  parallel_processing: true
+  max_images_per_dataset: null  # Set to small number for quick testing
+  
+  # SAHI default configuration
+  tile_size: 640
+  overlap_ratio: 0.2
+  
+  # Evaluation configuration
+  iou_thresholds: [0.5, 0.75]
+
+experiments:
+  # Experiment 1: Baseline TESSD Evaluation
+  baseline_evaluation:
+    description: "Baseline TESSD evaluation on B and S hospitals"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_size: 640
+    overlap_ratio: 0.2
+    max_images_per_dataset: null
+  
+  # Experiment 2: Confidence Threshold Optimization
+  confidence_optimization:
+    description: "Comprehensive confidence threshold optimization study"
+    enabled: true
+    confidence_thresholds: [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_size: 640
+    overlap_ratio: 0.2
+    max_images_per_dataset: 30  # Limit for optimization study
+  
+  # Experiment 3: Cross-Institutional Validation
+  institutional_validation:
+    description: "Cross-institutional validation between B and S hospitals"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_size: 640
+    overlap_ratio: 0.2
+    max_images_per_dataset: null
+  
+  # Experiment 4: SAHI Parameter Optimization
+  sahi_parameter_study:
+    description: "SAHI tiling parameter optimization study"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital"]  # Use one dataset for parameter optimization
+    max_images_per_dataset: 20  # Small subset for parameter testing
+  
+  # Experiment 5: Multi-Scale Analysis
+  multiscale_analysis:
+    description: "Multi-scale detection analysis with different tile sizes"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_sizes: [512, 640, 768, 896]  # Custom parameter
+    overlap_ratios: [0.1, 0.2, 0.3]  # Custom parameter
+    max_images_per_dataset: 25
+  
+  # Experiment 6: Robustness Analysis
+  robustness_analysis:
+    description: "Algorithm robustness across different conditions"
+    enabled: true
+    confidence_thresholds: [0.15, 0.20, 0.25]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_size: 640
+    overlap_ratio: 0.2
+    max_images_per_dataset: null
+  
+  # Experiment 7: Performance Benchmarking
+  performance_benchmark:
+    description: "Performance comparison against baseline methods"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_size: 640
+    overlap_ratio: 0.2
+    max_images_per_dataset: null
+    
+  # Experiment 8: Statistical Validation
+  statistical_validation:
+    description: "Statistical significance testing of results"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital", "S_hospital"]
+    tile_size: 640
+    overlap_ratio: 0.2
+    bootstrap_iterations: 1000  # Custom parameter
+    max_images_per_dataset: null
+
+# Quick testing configuration (for development/debugging)
+quick_test_override:
+  enabled: false
+  max_images_per_dataset: 5
+  experiments_to_run: ["baseline_evaluation"]
+  
+# Resource management
+resource_limits:
+  max_parallel_processes: 4
+  memory_limit_gb: 16
+  timeout_per_experiment_minutes: 120
+  
+# Output formatting
+output_formats:
+  save_json: true
+  save_csv: true
+  save_plots: true
+  save_detailed_logs: true
+  
+# Reproducibility settings
+reproducibility:
+  random_seed: 42
+  save_model_config: true
+  save_environment_info: true
+  save_git_commit: true 

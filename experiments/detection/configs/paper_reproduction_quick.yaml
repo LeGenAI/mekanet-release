@@ -1,0 +1,42 @@
+# Quick Test Configuration for TESSD Framework
+# Lightweight setup for development and testing
+
+global_settings:
+  model_path: "../../weights/epoch60.pt"
+  save_visualizations: true
+  save_detailed_results: true
+  parallel_processing: true
+  max_images_per_dataset: 3  # Very limited for quick testing
+  tile_size: 640
+  overlap_ratio: 0.2
+  iou_thresholds: [0.5]
+
+experiments:
+  # Quick baseline test
+  baseline_evaluation:
+    description: "Quick baseline TESSD test"
+    enabled: true
+    confidence_thresholds: [0.20]
+    datasets: ["B_hospital"]  # Single dataset for speed
+    max_images_per_dataset: 3
+  
+  # Quick confidence optimization
+  confidence_optimization:
+    description: "Quick confidence threshold test"
+    enabled: false  # Disabled by default for very quick runs
+    confidence_thresholds: [0.15, 0.20, 0.25]  # Limited range
+    datasets: ["B_hospital"]
+    max_images_per_dataset: 2
+
+# Resource management for quick testing  
+resource_limits:
+  max_parallel_processes: 2
+  memory_limit_gb: 8
+  timeout_per_experiment_minutes: 10
+  
+# Output formatting
+output_formats:
+  save_json: true
+  save_csv: false  # Skip for quick testing
+  save_plots: false  # Skip for quick testing
+  save_detailed_logs: false  # Skip for quick testing 

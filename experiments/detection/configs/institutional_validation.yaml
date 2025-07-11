@@ -1,0 +1,112 @@
+# Institutional Validation Configuration
+# Cross-hospital validation settings for B hospital → S hospital
+
+experiment:
+  name: "institutional_validation"
+  description: "Cross-institutional validation between B and S hospitals"
+  random_seed: 42
+  deterministic: true
+
+# Model configuration
+model:
+  path: "../../weights/epoch60.pt"
+  architecture: "YOLOv8"
+
+# Detection parameters
+detection:
+  confidence_thresholds: [0.20]  # Optimized threshold
+  iou_thresholds: [0.5, 0.75]
+  
+  # SAHI configuration
+  sahi:
+    enabled: true
+    tile_size: 640
+    overlap_ratio: 0.2
+    postprocess_type: "NMS"
+    postprocess_match_metric: "IOS"
+    postprocess_match_threshold: 0.5
+
+# Hospital datasets
+data:
+  b_hospital:
+    description: "Training institution"
+    image_dir: "/path/to/b_hospital/images"
+    annotation_dir: "/path/to/b_hospital/annotations"
+    expected_count: 100
+    
+  s_hospital:
+    description: "External validation institution"
+    image_dir: "/path/to/s_hospital/images"
+    annotation_dir: "/path/to/s_hospital/annotations"
+    expected_count: 5
+    cases: ["SC2", "SC7", "SP23", "SP37", "SP55"]
+
+# Institutional validation settings
+institutional_validation:
+  enabled: true
+  comparison_metrics:
+    - "mAP@0.5"
+    - "mAP@0.75"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    
+  statistical_tests:
+    - "mannwhitney"  # Non-parametric
+    - "ttest"        # Parametric
+    - "wilcoxon"     # Paired test
+    
+  significance_level: 0.05
+  
+  # Performance degradation thresholds
+  acceptable_degradation:
+    max_relative_drop: 0.15  # 15% maximum drop
+    min_absolute_performance: 0.70  # Minimum acceptable performance
+    
+  # Generate institutional comparison figures
+  generate_figures:
+    - "performance_comparison"
+    - "statistical_significance"
+    - "confidence_intervals"
+    - "institutional_bias_analysis"
+
+# Morphological feature analysis
+morphological_analysis:
+  enabled: true
+  features:
+    - "Num_Megakaryocytes"
+    - "Avg_Size"
+    - "Std_Size"
+    - "Avg_NND"  # Nearest neighbor distance
+    - "Avg_Local_Density"
+    - "Num_Clusters"
+    - "Spatial_Coverage"
+    - "Shape_Regularity"
+    - "Intensity_Features"
+    
+  clustering:
+    dbscan_eps: 50
+    dbscan_min_samples: 2
+    
+  compare_distributions: true
+
+# Output configuration
+output:
+  base_dir: "./results/institutional_validation"
+  save_visualizations: true
+  save_statistical_reports: true
+  save_raw_data: true
+  
+  # Specific institutional validation outputs
+  institutional_reports:
+    - "cross_hospital_performance.csv"
+    - "statistical_test_results.csv"
+    - "institutional_bias_report.txt"
+    - "morphological_comparison.png"
+
+# Quality assurance
+quality_assurance:
+  min_detections_per_image: 1
+  max_detections_per_image: 50
+  confidence_distribution_analysis: true
+  outlier_detection: true 

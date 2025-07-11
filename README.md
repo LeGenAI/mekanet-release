@@ -11,10 +11,10 @@
 <!-- Key Achievement -->
 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 20px; margin: 20px 0; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);">
   <h4 style="color: white; margin: 0; font-style: italic;">
-    🎯 "Advancing MPN diagnosis through AI-powered morphological analysis"
+    🎯 "TESSD Framework: Technical Innovation with Clinical Utility Assessment"
   </h4>
   <p style="color: #f0f0f0; margin: 10px 0 0 0; font-size: 14px;">
-    MekaNet achieves <strong>100% accuracy</strong> in distinguishing MPN patients from controls and <strong>reliable classification</strong> of ET, PV, and PMF subtypes through advanced megakaryocyte detection and feature extraction.
+    MekaNet's TESSD framework achieves <strong>mAP50 of 0.85</strong> and <strong>F1-score of 0.77</strong> for megakaryocyte detection, but clinical utility assessment reveals that <strong>classical biomarkers (PLT, Hb) outperform AI features</strong> for MPN diagnosis.
   </p>
 </div>
 
@@ -72,14 +72,15 @@
 
 <div align="center">
 
-### 🏆 **Outstanding Performance Metrics**
+### 🏆 **TESSD Framework Performance Metrics**
 
-| 🎯 **Task** | 🏆 **Best Result** | 📊 **Improvement** | 🔬 **Clinical Impact** |
+| 🎯 **Task** | 🏆 **Result** | 📊 **Validation** | 🔬 **Clinical Finding** |
 |:---:|:---:|:---:|:---|
-| **🩺 Binary Classification** | **100% Accuracy** | vs 93% conventional | Perfect MPN vs Control distinction |
-| **🔬 CALR-mutated Cases** | **100% Accuracy** | from 50% baseline | Critical mutation-specific classification |
-| **🎯 Triple-negative Cases** | **F1: 0.86** | from F1: 0.71 | Enhanced rare case detection |
-| **📊 Average Recall** | **0.90** | Consistent across subtypes | High clinical sensitivity |
+| **🤖 TESSD Detection** | **mAP50: 0.85** | Multi-institutional (B: n=100, S: n=73) | Superior technical performance |
+| **🎯 F1-Score** | **0.77** | Precision: 0.84, Recall: 0.77 | Balanced detection accuracy |
+| **⚡ Processing Speed** | **~15 slices/sec** | Real-time validation | Clinical workflow ready |
+| **🔍 Exploratory Threshold** | **0.15** | **0.986 recall** vs 0.925 (conservative 0.20) | Systematic threshold optimization |
+| **🏥 Clinical Utility** | **Classical > AI** | PLT, Hb consistently outperform morphological features | Key scientific discovery |
 
 </div>
 
@@ -89,109 +90,110 @@
 
 Our research introduces five major innovations to the field of computational pathology:
 
-### 🔍 **1. Novel Detection Framework**
-- **YOLOv8 + SAHI Integration**: First application combining YOLOv8 with Slicing Aided Hyper Inference for tiny megakaryocyte detection
-- **Image Tiling Strategy**: Optimized 640×640 tiling with strategic overlap for high-resolution bone marrow images
-- **Semi-supervised Learning**: Self-training approach on partially labeled megakaryocyte images
+### 🔍 **1. TESSD Framework Innovation**
+- **Tiling-Enhanced Semi-Supervised Detection**: Novel TESSD framework combining optimized tiling with semi-supervised learning
+- **Optimal Threshold Discovery**: Systematic analysis revealing 0.15 as optimal exploratory threshold (0.986 recall)
+- **Multi-institutional Validation**: Robust testing across B Hospital (n=100) and S Hospital (n=73)
+- **Processing Efficiency**: Real-time performance at ~15 slices per second
 
-### 📊 **2. Enhanced Classification Accuracy**
-- **Perfect Binary Classification**: 100% accuracy distinguishing control from patient groups
-- **Detection-derived Features**: Significant performance boost through morphological feature integration
-- **Robust Feature Engineering**: 20+ quantitative morphological features extracted from detected megakaryocytes
+### 📊 **2. Clinical Utility Assessment**
+- **Key Scientific Discovery**: Classical biomarkers (PLT, Hb) outperform AI morphological features
+- **Dual Contribution**: Technical innovation (TESSD) + scientific validation (clinical utility)
+- **Evidence-based Finding**: While TESSD achieves superior detection, morphological features don't add clinical value
 
-### 🎯 **3. Hierarchical Classification Framework**
-- **MPN Subtype Distinction**: Effective classification of ET, PV, and PMF
-- **Mutation-specific Performance**: Specialized handling of JAK2, CALR, MPL, and triple-negative cases
-- **Clinical Parameter Integration**: Seamless incorporation of laboratory and genetic data
+### 🎯 **3. Multi-Institutional Validation**
+- **Comprehensive Testing**: B Hospital (training, n=100) vs S Hospital (external validation, n=73)
+- **Threshold Generalizability**: Exploratory (0.15) vs Conservative (0.20) comparison
+- **Clinical Workflow Integration**: Processing speed of ~15 slices per second enables real-time analysis
 
-### 🏥 **4. Cross-institutional Validation**
-- **External Dataset Testing**: Rigorous validation on independent hospital data
-- **Robust Generalizability**: Consistent performance across varying imaging conditions
-- **Clinical Workflow Integration**: Validated compatibility with existing pathology workflows
+### 🏥 **4. Technical Performance Excellence**
+- **Superior Detection Metrics**: mAP50 of 0.85 with F1-score of 0.77
+- **Balanced Performance**: Precision (0.84) and Recall (0.77) optimization
+- **Processing Efficiency**: Real-time analysis capability for clinical deployment
 
-### 🧬 **5. Mutation-specific Insights**
-- **Molecular-Morphological Correlation**: Novel insights linking genetic profiles to morphological features
-- **CALR-mutated Classification**: Breakthrough 100% accuracy for challenging CALR cases
-- **Triple-negative Analysis**: Enhanced F1-score for difficult-to-classify cases
+### 🧬 **5. Scientific Validation**
+- **Clinical Utility Assessment**: Systematic evaluation of AI features vs classical biomarkers
+- **Evidence-based Medicine**: Demonstrates that standard clinical markers remain superior
+- **Methodological Innovation**: Novel approach to assess clinical utility of AI-derived features
 
 ---
 
 ## 🛠️ Core Capabilities
 
-### 🔍 **Advanced Detection System**
-- **🤖 YOLOv8 Integration**: State-of-the-art object detection specifically fine-tuned for megakaryocytes
-- **🔬 SAHI Optimization**: Slicing Aided Hyper Inference for effective tiny object detection
-- **📐 Strategic Tiling**: Optimized image segmentation for high-resolution histopathology images
-- **⚡ Semi-supervised Learning**: Self-training on partially labeled datasets
+### 🔍 **TESSD Detection System**
+- **🤖 TESSD Framework**: Tiling-Enhanced Semi-Supervised Detection with optimal threshold discovery
+- **🔬 Multi-institutional Validation**: Tested across B Hospital (n=100) and S Hospital (n=73)
+- **📐 Optimal Tiling**: 640×640 pixel tiling with strategic overlap for high-resolution analysis
+- **⚡ Real-time Processing**: ~15 slices per second enabling clinical workflow integration
 
-### 📊 **Comprehensive Feature Engineering**
-- **🔬 Morphological Analysis**: Size, shape, clustering, and spatial distribution metrics
-- **📈 Statistical Features**: Advanced statistical descriptors of megakaryocyte populations
-- **🧮 Spatial Metrics**: Nearest neighbor distances, local density calculations
-- **🔗 Clustering Analysis**: DBSCAN-based megakaryocyte clustering characteristics
+### 📊 **Clinical Utility Assessment**
+- **🔬 Comparative Analysis**: AI morphological features vs classical biomarkers (PLT, Hb)
+- **📈 Evidence-based Findings**: Classical markers demonstrate superior clinical utility
+- **🧮 Systematic Evaluation**: Methodical assessment of feature importance and clinical value
+- **🔗 Scientific Discovery**: Morphological features don't add value beyond standard biomarkers
 
-### 🎯 **Multi-level Classification**
-- **🩺 Binary Classification**: MPN vs Control with 97.2% ± 3.0% accuracy
-- **🔬 Multi-class Classification**: ET, PV, PMF subtype distinction
-- **🧬 Mutation-aware Models**: Specialized classification for genetic subtypes
-- **📊 Ensemble Methods**: Decision tree-based robust classification
+### 🎯 **Threshold Optimization**
+- **🩺 Exploratory Threshold**: 0.15 achieves 0.986 recall for high sensitivity
+- **🔬 Conservative Threshold**: 0.20 achieves 0.925 recall for balanced precision
+- **🧬 Systematic Analysis**: Comprehensive threshold evaluation across institutions
+- **📊 Performance Validation**: Multi-institutional testing confirms optimal thresholds
 
 ### 🏥 **Clinical Integration**
-- **📋 Laboratory Integration**: Seamless incorporation of clinical parameters
-- **🧬 Genetic Data Fusion**: JAK2, CALR, MPL mutation status integration
-- **📊 Standardized Reporting**: Clinical-grade output formatting
-- **🔄 Workflow Compatibility**: Integration with existing pathology systems
+- **📋 Processing Efficiency**: ~15 slices per second for real-time analysis
+- **🧬 Multi-institutional Validation**: Robust performance across different hospital systems
+- **📊 Clinical Utility Assessment**: Evidence-based evaluation of AI vs classical features
+- **🔄 Workflow Ready**: Technical performance suitable for clinical deployment
 
 ---
 
 ## 📊 Performance Results
 
-### 🏆 **Three-Tier Modeling Results**
+### 🏆 **TESSD Framework Results**
 
 <div align="center">
 
-| 🎯 **Classification Task** | 🤖 **Algorithm** | 📈 **Accuracy** | 🎯 **95% CI** | 📊 **Key Features** |
+| 🎯 **Metric** | 🤖 **Performance** | 📈 **Validation** | 🎯 **Institution** | 📊 **Clinical Finding** |
 |:---:|:---:|:---:|:---:|:---:|
-| **🩺 Binary (MPN vs Lymphoma)** | **SVM** | **97.2% ± 3.0%** | **[96.3%-98.1%]** | Hb |
-| **🩺 Binary (MPN vs Lymphoma)** | **Gradient Boosting** | **96.9% ± 3.3%** | **[96.0%-97.8%]** | PLT, Hb |
-| **🩺 Binary (MPN vs Lymphoma)** | **Decision Tree** | **96.8% ± 3.1%** | **[95.6%-97.6%]** | PLT, Hb |
-| **🔬 MPN Subtypes (ET/PV/PMF)** | **Logistic Regression** | **81.9% ± 8.4%** | **[79.5%-84.3%]** | Hb, WBC, PLT |
-| **🔬 MPN Subtypes (ET/PV/PMF)** | **Random Forest** | **81.2% ± 7.3%** | **[79.1%-83.3%]** | Clinical features |
+| **🩺 mAP@0.5** | **0.85** | **Multi-institutional** | **B + S Hospitals** | Superior detection |
+| **🎯 F1-Score** | **0.77** | **Precision: 0.84, Recall: 0.77** | **Balanced metrics** | Technical excellence |
+| **⚡ Processing Speed** | **~15 slices/sec** | **Real-time validation** | **Clinical workflow** | Deployment ready |
+| **🔍 Exploratory Threshold** | **0.15** | **0.986 recall** | **High sensitivity** | Optimal discovery |
+| **🏥 Clinical Utility** | **Classical > AI** | **PLT, Hb > morphological** | **Evidence-based** | Key scientific finding |
 
 </div>
 
-### 🏥 **Cross-Institutional Validation Results**
+### 🏥 **Multi-Institutional Validation Results**
 
 <div align="center">
 
-| 🎯 **Task** | 🤖 **Algorithm** | 🏥 **Internal** | 🌐 **External** | 📊 **Relative Performance** |
+| 🎯 **Institution** | 🤖 **Sample Size** | 🏥 **Role** | 🌐 **TESSD Performance** | 📊 **Key Findings** |
 |:---:|:---:|:---:|:---:|:---:|
-| **🩺 Binary Classification** | **Decision Tree** | **100.0%** | **89.0%** | **89.0%** |
-| **🩺 Binary Classification** | **Random Forest** | **99.0%** | **86.3%** | **87.2%** |
-| **🩺 Binary Classification** | **Gradient Boosting** | **100.0%** | **89.0%** | **89.0%** |
-| **🔬 Multiclass Classification** | **Random Forest** | **92.3%** | **86.5%** | **93.8%** |
-| **🔬 Multiclass Classification** | **Logistic Regression** | **85.9%** | **92.3%** | **107.5%** |
+| **B Hospital** | **n=100** | **Training** | **mAP50: 0.85** | Robust detection baseline |
+| **S Hospital** | **n=73** | **External Validation** | **Consistent performance** | Generalizability confirmed |
+| **Threshold 0.15** | **Multi-institutional** | **Exploratory** | **0.986 recall** | High sensitivity validated |
+| **Threshold 0.20** | **Multi-institutional** | **Conservative** | **0.925 recall** | Balanced precision-recall |
+| **Processing Speed** | **Both institutions** | **Real-time** | **~15 slices/sec** | Clinical deployment ready |
 
 </div>
 
-### 🎯 **RFECV Feature Selection Results**
+### 🎯 **Clinical Utility Assessment Results**
 
 <div align="center">
 
-| 🎯 **Classification Type** | 📊 **Optimal Features** | 🎯 **Mean Accuracy** | 📈 **Stability Score** | 🔬 **Top Features** |
+| 🎯 **Feature Type** | 📊 **Performance** | 🎯 **Clinical Value** | 📈 **Evidence** | 🔬 **Conclusion** |
 |:---:|:---:|:---:|:---:|:---:|
-| **🩺 Binary (Clinical Only)** | **2 features** | **95.1% ± 3.4%** | **0.535** | PLT, Hb |
-| **🔬 Multiclass (Clinical Only)** | **1 feature** | **70.3% ± 8.5%** | **0.344** | Hb |
-| **🩺 Binary (Mixed Features)** | **1 feature** | **92.9% ± 2.9%** | **0.193** | PLT |
-| **🔬 Multiclass (Mixed Features)** | **1 feature** | **72.2% ± 6.0%** | **0.031** | Hb |
+| **🩺 Classical Biomarkers** | **Superior** | **High** | **PLT, Hb outperform** | Clinical gold standard |
+| **🤖 AI Morphological** | **Technically advanced** | **Limited** | **Don't add value** | Technical innovation only |
+| **🔍 TESSD Detection** | **mAP50: 0.85** | **Technical excellence** | **Superior detection** | Framework validation |
+| **🏥 Clinical Impact** | **Evidence-based** | **Standard care** | **Classical > AI** | Scientific discovery |
 
 </div>
 
 **🔑 Key Insights**:
-- **Clinical features** show superior stability compared to mixed approaches
-- **PLT (Platelet count)** emerges as the most important single discriminator
-- **Hb (Hemoglobin)** is critical for MPN subtype classification
-- **Feature stability** correlates with clinical interpretability
+- **TESSD framework** achieves superior technical performance for megakaryocyte detection
+- **Classical biomarkers** (PLT, Hb) demonstrate superior clinical utility
+- **Morphological features** don't add clinical value beyond standard markers
+- **Dual contribution**: Technical innovation + scientific validation of clinical utility
 
 ---
 

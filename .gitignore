@@ -45,18 +45,72 @@ venv.bak/
 *.swp
 *.swo
 
-# Data files
+# ==========================================
+# 🚨 PRIVATE DATA & PATIENT INFORMATION 🚨
+# ==========================================
+
+# Patient Data Files (환자 데이터 파일)
 *.csv
 *.xlsx
+*.xls
 *.pkl
+*.pickle
+
+# Medical Images (의료 이미지)
+data/sample_images/
+data/demo_data/
 data/private/
 data/patient_data/
+data/validation_images/
+data/clinical_data/
 
-# Model weights (large files)
+# Demo and Patient Data Directories (데모 및 환자 데이터 디렉토리)
+demo_data/
+sample_images/
+patient_data/
+clinical_data/
+validation_images/
+external_validation/
+
+# Patient-related files (환자 관련 파일)
+*patient*
+*clinical*
+*validation_cases*
+*external_validation*
+*mutations*
+*megakaryocyte*
+
+# Results with potentially sensitive data (민감 데이터가 포함될 수 있는 결과)
+results_*/
+*_results/
+enhanced_experiments/
+nested_cv_results/
+robust_results/
+ultimate_results/
+mekanet_*_results/
+*_confidence_intervals.csv
+*_statistical_significance.csv
+
+# Specific patient data patterns (특정 환자 데이터 패턴)
+*SC2*
+*SC7*
+*SP23*
+*SP37*
+*SP55*
+*_B_only_*
+*_filtered_*
+*comprehensive_integrated*
+
+# Model weights (large files) - 모델 가중치
 weights/*.pt
 weights/*.pth
+weights/*.pkl
 !weights/README.md
 !weights/download_weights.py
+
+# Keep figures folder (figures 폴더는 유지)
+# !figures/
+# figures/ 폴더는 명시적으로 제외하지 않아서 유지됨
 
 # OS
 .DS_Store
@@ -65,3 +119,18 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# ==========================================
+# 📋 EXCEPTIONS (예외 항목)
+# ==========================================
+# Keep specific documentation and code files
+!README.md
+!requirements.txt
+!setup.py
+!**/README.md
+!**/requirements.txt

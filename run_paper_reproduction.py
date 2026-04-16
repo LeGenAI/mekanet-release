@@ -99,7 +99,10 @@ Examples:
         print("\n" + "="*50)
         print("🎉 PAPER REPRODUCTION COMPLETED!")
         print("="*50)
-        print(f"✅ Success rate: {successful}/{total} ({successful/total*100:.1f}%)")
+        if total > 0:
+            print(f"✅ Success rate: {successful}/{total} ({successful/total*100:.1f}%)")
+        else:
+            print("ℹ️ No experiment results were recorded.")
         print(f"📁 Results: {args.output}")
         
         if successful < total:
@@ -108,7 +111,7 @@ Examples:
                 if result.get('status') != 'success':
                     print(f"  - {name}: {result.get('error_message', 'Unknown error')}")
         
-        return 0 if successful == total else 1
+        return 0 if total == 0 or successful == total else 1
         
     except KeyboardInterrupt:
         print("\n⚠️  Interrupted by user")

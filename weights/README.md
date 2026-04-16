@@ -1,113 +1,48 @@
-# Model Weights
+# Model Weights Policy
 
-This directory contains the pre-trained model weights for MekaNet.
+Production model weights are **not** bundled in this public repository.
 
-## Available Models
+## License Scope
 
-### Detection Model
-- **File**: `epoch60.pt`
-- **Type**: YOLOv8 detection model
-- **Purpose**: Megakaryocyte detection in bone marrow images
-- **Size**: ~14MB
-- **Training**: Trained on 100 partially labeled images from B hospital
+Code in the main GitHub repository remains MIT-licensed, but the distributed model artifact is covered by separate review/research-only terms:
 
-### Classification Model  
-- **File**: `classifier.pkl`
-- **Type**: Decision Tree classifier
-- **Purpose**: MPN subtype classification (ET, PV, PMF)
-- **Size**: ~2MB
-- **Features**: Clinical + morphological features
+- [WEIGHTS_LICENSE.md](./WEIGHTS_LICENSE.md)
 
-## Download Instructions
+## Expected Filenames
 
-### Automatic Download
+- `epoch60.pt` for the detection model
+- `classifier.pkl` for the classification model
+
+## Current Public-Release Behavior
+
+- this directory documents the expected filenames only
+- `download_weights.py` is manifest-driven and never creates fake placeholder models
+- experiment code will fail honestly if real weights are absent
+- `manifest.json` is the canonical list of expected filenames and sources
+- public model repo: [LeBrony/mekanet-release-weights](https://huggingface.co/LeBrony/mekanet-release-weights)
+
+## Verification
+
+```bash
+cd weights
+python download_weights.py --verify
+```
+
+## Download
+
 ```bash
 cd weights
 python download_weights.py
 ```
 
-### Manual Download
-If automatic download fails, you can manually download the weights:
+By default the downloader tries, in order:
 
-1. **Detection Model**: Download `epoch60.pt` from the releases page
-2. **Classification Model**: Download `classifier.pkl` from the releases page
+1. the configured Hugging Face Hub entry from `manifest.json`
+2. an environment-variable override such as `MEKANET_EPOCH60_PT_URL`
+3. the configured GitHub release asset URL from `manifest.json`
 
-### Verification
-To verify all weights are present:
-```bash
-python download_weights.py --verify
-```
+The current canonical model namespace is intended to be `LeBrony/mekanet-release-weights`, with filenames and checksums tracked in `manifest.json`.
 
-## Usage
+## Important Note
 
-### Detection Model
-```python
-from mekanet import YoloSahiDetector
-
-# Load detector
-detector = YoloSahiDetector('weights/epoch60.pt')
-
-# Use for detection
-detections = detector.predict(image, use_sahi=True)
-```
-
-### Classification Model
-```python
-from mekanet.models import MPNClassifier
-
-# Load classifier
-classifier = MPNClassifier.load('weights/classifier.pkl')
-
-# Make predictions
-result = classifier.predict_single(features)
-```
-
-## Model Performance
-
-### Detection Model
-- **Architecture**: YOLOv8 with SAHI
-- **Training Data**: 100 partially labeled MPN images  
-- **Validation**: External validation on 5 images from S hospital
-- **Performance**: High precision detection across institutional sources
-
-### Classification Model
-- **Algorithm**: Decision Tree with grid search optimization
-- **Features**: 13 clinical + morphological features
-- **Performance**: 
-  - Binary classification (MPN vs Control): Up to 100% accuracy
-  - Multi-class classification (ET/PV/PMF): Up to 88% accuracy
-
-## File Integrity
-
-After downloading, verify file integrity:
-
-```bash
-# Check file sizes
-ls -lh *.pt *.pkl
-
-# Verify loading (optional)
-python -c "
-from mekanet import YoloSahiDetector
-from mekanet.models import MPNClassifier
-detector = YoloSahiDetector('epoch60.pt')
-classifier = MPNClassifier.load('classifier.pkl')
-print('✅ All models loaded successfully!')
-"
-```
-
-## Troubleshooting
-
-### Download Issues
-- Check internet connection
-- Verify GitHub releases are accessible
-- Try manual download if automatic fails
-
-### Loading Issues
-- Ensure correct PyTorch version (≥1.9.0)
-- Check CUDA compatibility for GPU usage
-- Verify file integrity (re-download if needed)
-
-## License
-
-These model weights are provided under the same license as the MekaNet framework.
-For research and educational use only.
+If real weights are released later, the download script can be updated with canonical URLs. Until then, do not treat this repository as a fully reproducible weight distribution.

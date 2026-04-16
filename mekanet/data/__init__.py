@@ -8,13 +8,23 @@ Contains utilities for:
 """
 
 from .feature_extraction import FeatureExtractor, extract_morphological_features
-from .preprocessing import preprocess_image, normalize_features
-from .dataset import MegakaryocyteDataset
 
 __all__ = [
     "FeatureExtractor", 
     "extract_morphological_features",
-    "preprocess_image",
-    "normalize_features", 
-    "MegakaryocyteDataset"
 ]
+
+try:
+    from .preprocessing import preprocess_image, normalize_features
+except ModuleNotFoundError:
+    preprocess_image = None
+    normalize_features = None
+else:
+    __all__.extend(["preprocess_image", "normalize_features"])
+
+try:
+    from .dataset import MegakaryocyteDataset
+except ModuleNotFoundError:
+    MegakaryocyteDataset = None
+else:
+    __all__.append("MegakaryocyteDataset")

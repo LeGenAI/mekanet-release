@@ -11,16 +11,35 @@ This package provides tools for:
 __version__ = "1.0.0"
 __author__ = "Byung-Sun Won, Young-eun Lee, Jae-Hyun Baek, Sang Mee Hwang, Jon-Lark Kim"
 
-from .models import YoloSahiDetector, CellularityEstimator, MPNClassifier
-from .data import FeatureExtractor, MegakaryocyteDataset
+from .models import MPNClassifier
+from .data import FeatureExtractor, extract_morphological_features
 from .utils import visualize_detections, calculate_metrics
 
 __all__ = [
-    "YoloSahiDetector",
-    "CellularityEstimator", 
     "MPNClassifier",
     "FeatureExtractor",
-    "MegakaryocyteDataset",
+    "extract_morphological_features",
     "visualize_detections",
     "calculate_metrics"
 ]
+
+try:
+    from .models import YoloSahiDetector
+except ImportError:
+    YoloSahiDetector = None
+else:
+    __all__.append("YoloSahiDetector")
+
+try:
+    from .models import CellularityEstimator
+except ImportError:
+    CellularityEstimator = None
+else:
+    __all__.append("CellularityEstimator")
+
+try:
+    from .data import MegakaryocyteDataset
+except ImportError:
+    MegakaryocyteDataset = None
+else:
+    __all__.append("MegakaryocyteDataset")

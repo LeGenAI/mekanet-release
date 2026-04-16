@@ -7,8 +7,20 @@ Contains implementations of:
 - Classification models for MPN diagnosis
 """
 
-from .yolo_sahi import YoloSahiDetector
-from .cellularity_unet import CellularityEstimator
 from .classifier import MPNClassifier
 
-__all__ = ["YoloSahiDetector", "CellularityEstimator", "MPNClassifier"]
+__all__ = ["MPNClassifier"]
+
+try:
+    from .yolo_sahi import YoloSahiDetector
+except ModuleNotFoundError:
+    YoloSahiDetector = None
+else:
+    __all__.append("YoloSahiDetector")
+
+try:
+    from .cellularity_unet import CellularityEstimator
+except ModuleNotFoundError:
+    CellularityEstimator = None
+else:
+    __all__.append("CellularityEstimator")

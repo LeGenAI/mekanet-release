@@ -49,14 +49,17 @@ venv.bak/
 # 🚨 PRIVATE DATA & PATIENT INFORMATION 🚨
 # ==========================================
 
-# Patient Data Files (환자 데이터 파일)
+# Patient data files
 *.csv
+*.tex
 *.xlsx
 *.xls
 *.pkl
 *.pickle
+/docs/*
+!/docs/manuscript_alignment.md
 
-# Medical Images (의료 이미지)
+# Medical images
 data/sample_images/
 data/demo_data/
 data/private/
@@ -64,7 +67,7 @@ data/patient_data/
 data/validation_images/
 data/clinical_data/
 
-# Demo and Patient Data Directories (데모 및 환자 데이터 디렉토리)
+# Demo and patient data directories
 demo_data/
 sample_images/
 patient_data/
@@ -72,7 +75,7 @@ clinical_data/
 validation_images/
 external_validation/
 
-# Patient-related files (환자 관련 파일)
+# Patient-related files
 *patient*
 *clinical*
 *validation_cases*
@@ -80,7 +83,7 @@ external_validation/
 *mutations*
 *megakaryocyte*
 
-# Results with potentially sensitive data (민감 데이터가 포함될 수 있는 결과)
+# Results with potentially sensitive data
 results_*/
 *_results/
 enhanced_experiments/
@@ -91,7 +94,7 @@ mekanet_*_results/
 *_confidence_intervals.csv
 *_statistical_significance.csv
 
-# Specific patient data patterns (특정 환자 데이터 패턴)
+# Specific patient data patterns
 *SC2*
 *SC7*
 *SP23*
@@ -101,16 +104,18 @@ mekanet_*_results/
 *_filtered_*
 *comprehensive_integrated*
 
-# Model weights (large files) - 모델 가중치
+# Model weights (large files)
 weights/*.pt
 weights/*.pth
 weights/*.pkl
 !weights/README.md
 !weights/download_weights.py
+!weights/manifest.json
+!weights/hf_model_card.md
 
-# Keep figures folder (figures 폴더는 유지)
+# Keep figures folder if needed later
 # !figures/
-# figures/ 폴더는 명시적으로 제외하지 않아서 유지됨
+# figures/ is not explicitly ignored
 
 # OS
 .DS_Store

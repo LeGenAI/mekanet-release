@@ -9,14 +9,34 @@ and validation across multiple institutions for the MekaNet paper.
 __version__ = "1.0.0"
 __author__ = "MekaNet Research Team"
 
-from .tessd_framework import TESSDFramework
-from .detection_trainer import DetectionTrainer
-from .detection_evaluator import DetectionEvaluator
-from .institutional_validator import InstitutionalValidator
+__all__ = []
 
-__all__ = [
-    "TESSDFramework",
-    "DetectionTrainer", 
-    "DetectionEvaluator",
-    "InstitutionalValidator"
-] 
+try:
+    from .detection_evaluator import DetectionEvaluator
+except ModuleNotFoundError:
+    DetectionEvaluator = None
+else:
+    __all__.append("DetectionEvaluator")
+
+try:
+    from .institutional_validator import InstitutionalValidator
+except ModuleNotFoundError:
+    InstitutionalValidator = None
+else:
+    __all__.append("InstitutionalValidator")
+
+try:
+    from .tessd_framework import TESSDFramework
+except ModuleNotFoundError:
+    TESSDFramework = None
+else:
+    __all__.append("TESSDFramework")
+
+try:
+    from .semi_supervised_trainer import SemiSupervisedTrainer
+except ModuleNotFoundError:
+    SemiSupervisedTrainer = None
+    DetectionTrainer = None
+else:
+    DetectionTrainer = SemiSupervisedTrainer
+    __all__.extend(["SemiSupervisedTrainer", "DetectionTrainer"])

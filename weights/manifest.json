@@ -1,0 +1,56 @@
+{
+  "weights": {
+    "epoch60.pt": {
+      "description": "YOLOv8 detection model for megakaryocyte detection",
+      "required": true,
+      "sha256": "dc3b411530457815219a6549587cf18f57590e4d77c859597c9647d176568d53",
+      "env_url": "MEKANET_EPOCH60_PT_URL",
+      "sources": [
+        {
+          "type": "huggingface",
+          "repo_id": "LeBrony/mekanet-release-weights",
+          "repo_type": "model",
+          "revision": "main",
+          "asset": "epoch60.pt"
+        },
+        {
+          "type": "env_url",
+          "env": "MEKANET_EPOCH60_PT_URL"
+        },
+        {
+          "type": "github_release",
+          "owner": "LeGenAI",
+          "repo": "mekanet-release",
+          "tag": "v1.0.0",
+          "asset": "epoch60.pt"
+        }
+      ]
+    },
+    "classifier.pkl": {
+      "description": "Classifier artifact for manuscript-era classification experiments",
+      "required": false,
+      "sha256": null,
+      "env_url": "MEKANET_CLASSIFIER_PKL_URL",
+      "sources": [
+        {
+          "type": "huggingface",
+          "repo_id": "LeBrony/mekanet-release-weights",
+          "repo_type": "model",
+          "revision": "main",
+          "asset": "classifier.pkl"
+        },
+        {
+          "type": "env_url",
+          "env": "MEKANET_CLASSIFIER_PKL_URL"
+        },
+        {
+          "type": "github_release",
+          "owner": "LeGenAI",
+          "repo": "mekanet-release",
+          "tag": "v1.0.0",
+          "asset": "classifier.pkl"
+        }
+      ]
+    }
+  }
+}

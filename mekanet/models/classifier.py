@@ -14,7 +14,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
-import xgboost as xgb
+try:
+    import xgboost as xgb
+except ModuleNotFoundError:
+    xgb = None
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
 from typing import Dict, Any, Optional, List, Tuple, Union
@@ -87,6 +90,10 @@ class MPNClassifier:
                 C=1.0
             )
         elif self.model_type == "xgboost":
+            if xgb is None:
+                raise ModuleNotFoundError(
+                    "xgboost is not installed. Install it or choose a different model_type."
+                )
             self.model = xgb.XGBClassifier(
                 random_state=42,
                 n_estimators=100,
@@ -126,10 +133,14 @@ class MPNClassifier:
             
             self.feature_names = feature_names
             
-            # Split data
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size, random_state=42, stratify=y
-            )
+            if test_size and test_size > 0:
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size, random_state=42, stratify=y
+                )
+            else:
+                X_train, y_train = X, y
+                X_test = np.empty((0, X.shape[1]))
+                y_test = np.empty((0,), dtype=y.dtype if hasattr(y, "dtype") else int)
             
             # Train model
             if use_grid_search:
@@ -145,16 +156,18 @@ class MPNClassifier:
                 best_params = None
             
             # Evaluate model
-            y_pred = self.model.predict(X_test)
-            y_pred_proba = self.model.predict_proba(X_test)
-            
-            accuracy = accuracy_score(y_test, y_pred)
-            class_report = classification_report(y_test, y_pred, output_dict=True)
-            
-            # Calculate AUC for binary classification
+            accuracy = None
+            class_report = None
             auc_score = None
-            if self.binary_mode and hasattr(self.model, 'predict_proba'):
-                auc_score = roc_auc_score(y_test, y_pred_proba[:, 1])
+            if len(X_test) > 0:
+                y_pred = self.model.predict(X_test)
+                y_pred_proba = self.model.predict_proba(X_test)
+                accuracy = accuracy_score(y_test, y_pred)
+                class_report = classification_report(y_test, y_pred, output_dict=True)
+            
+                # Calculate AUC for binary classification
+                if self.binary_mode and hasattr(self.model, 'predict_proba'):
+                    auc_score = roc_auc_score(y_test, y_pred_proba[:, 1])
             
             self.is_trained = True
             
@@ -168,7 +181,10 @@ class MPNClassifier:
                 'n_test_samples': len(X_test)
             }
             
-            logger.info(f"Model trained successfully. Test accuracy: {accuracy:.3f}")
+            if accuracy is None:
+                logger.info("Model trained successfully without a held-out test split")
+            else:
+                logger.info(f"Model trained successfully. Test accuracy: {accuracy:.3f}")
             
             return results
             

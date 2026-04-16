@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use MekaNet, please cite the software and the associated manuscript."
+title: "MekaNet"
+type: software
+version: 1.0.0
+url: "https://github.com/LeGenAI/mekanet-release"
+repository-code: "https://github.com/LeGenAI/mekanet-release"
+license: MIT
+authors:
+  - family-names: "Won"
+    given-names: "Byung-Sun"
+  - family-names: "Lee"
+    given-names: "Young-eun"
+  - family-names: "Baek"
+    given-names: "Jae-Hyun"
+  - family-names: "Hwang"
+    given-names: "Sang Mee"
+  - family-names: "Kim"
+    given-names: "Jon-Lark"
+preferred-citation:
+  type: article
+  title: "MekaNet: A deep learning framework for megakaryocyte detection and myeloproliferative neoplasm classification with enhanced feature engineering"
+  authors:
+    - family-names: "Won"
+      given-names: "Byung-Sun"
+    - family-names: "Kim"
+      given-names: "Jon-Lark"
+    - family-names: "Baek"
+      given-names: "Jae-Hyun"
+    - family-names: "Hwang"
+      given-names: "Sang Mee"
+    - family-names: "Lee"
+      given-names: "Young-eun"
+  journal: "Medical Image Analysis"
+  status: "submitted"
+  year: 2026

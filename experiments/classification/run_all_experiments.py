@@ -14,12 +14,25 @@ import sys
 import warnings
 import time
 from pathlib import Path
+import pandas as pd
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings('ignore')
 
 # Import path setup utility
 from setup_paths import setup_paths, verify_imports
+
+
+def _load_classification_data():
+    """Load the shared classification CSV once per experiment."""
+    data_path = Path("../../data/demo_data/classification.csv")
+    if not data_path.exists():
+        raise FileNotFoundError(
+            f"Demo dataset not found at {data_path}. Add the CSV or update the path before running experiments."
+        )
+
+    data = pd.read_csv(data_path)
+    return data_path, data
 
 def print_section(title):
     """Print formatted section header"""
@@ -42,20 +55,17 @@ def run_rfecv_experiment():
     try:
         # Import required modules
         sys.path.insert(0, str(Path(__file__).parent))
-        from rfecv_feature_selection import RFECVAnalyzer
-        from utils.data_loader import MekaNetDataLoader
+        from rfecv_feature_selection import RFECVFeatureSelector
         
         # Load data
         print("📊 Loading dataset...")
-        loader = MekaNetDataLoader('../../data/demo_data/classification.csv')
-        data = loader.load_raw_data()
-        data = loader.create_binary_labels(data)
+        _, data = _load_classification_data()
         
         print(f"Dataset loaded: {data.shape[0]} samples, {data.shape[1]} features")
         
         # Initialize analyzer
         print("⚙️ Initializing RFECV analyzer...")
-        analyzer = RFECVAnalyzer(random_seeds=[42, 43, 44, 45, 46])
+        analyzer = RFECVFeatureSelector(random_seeds=[42, 43, 44, 45, 46])
         
         # Create results directory
         results_dir = Path('results')
@@ -63,20 +73,32 @@ def run_rfecv_experiment():
         
         # Run correlation analysis
         print("🔍 Analyzing feature correlations...")
-        corr_results = analyzer.analyze_feature_correlations(data, results_dir)
-        
-        # Create stabilized features
-        print("📈 Creating stabilized feature groups...")
-        stabilized_data = analyzer.create_stabilized_features(data)
-        
-        # Run RFECV analysis
+        analyzer.analyze_feature_correlations(data, save_dir=results_dir)
+
+        clinical_features = ['sex', 'age', 'Hb', 'WBC', 'PLT', 'Reti%']
+        available_clinical = [f for f in clinical_features if f in data.columns]
+        if not available_clinical:
+            raise ValueError("No expected clinical features were found in the classification dataset")
+
+        binary_df = data[data['Label'].isin(['ET', 'PV', 'PMF', 'Lymphoma'])].copy()
+        binary_df['binary_target'] = binary_df['Label'].apply(lambda x: 0 if x == 'Lymphoma' else 1)
+        multiclass_df = data[data['Label'].isin(['ET', 'PV', 'PMF'])].copy()
+        multiclass_labels = sorted(multiclass_df['Label'].dropna().unique())
+        label_to_idx = {label: idx for idx, label in enumerate(multiclass_labels)}
+        multiclass_df['multiclass_target'] = multiclass_df['Label'].map(label_to_idx)
+
         print("🎯 Running RFECV analysis...")
-        binary_results = analyzer.run_stabilized_rfecv_analysis(stabilized_data, 'binary')
-        multiclass_results = analyzer.run_stabilized_rfecv_analysis(stabilized_data, 'multiclass')
+        analyzer.run_enhanced_rfecv(binary_df[available_clinical], binary_df['binary_target'], 'binary_clinical', 'binary')
+        analyzer.run_enhanced_rfecv(
+            multiclass_df[available_clinical],
+            multiclass_df['multiclass_target'],
+            'multiclass_clinical',
+            'multiclass'
+        )
         
         # Generate report
         print("📝 Generating analysis report...")
-        analyzer.generate_enhanced_report(results_dir)
+        analyzer.generate_report(results_dir / "enhanced_rfecv_analysis_report.txt")
         
         print("✅ RFECV experiment completed successfully!")
         return True
@@ -102,25 +124,35 @@ def run_institutional_validation():
     try:
         # Import required modules
         from institutional_validation import InstitutionalValidator
-        from utils.data_loader import MekaNetDataLoader
         
         # Load data
         print("📊 Loading multi-institutional dataset...")
-        loader = MekaNetDataLoader('../../data/demo_data/classification.csv')
-        data = loader.load_raw_data()
+        _, data = _load_classification_data()
+        if 'data_source' not in data.columns:
+            raise ValueError("classification.csv is missing the 'data_source' column required for institutional validation")
+        df_internal = data[data['data_source'] == 'internal'].copy()
+        df_external = data[data['data_source'] == 'external'].copy()
         
         # Initialize validator
         print("⚙️ Initializing institutional validator...")
         validator = InstitutionalValidator()
+
+        clinical_features = ['sex', 'age', 'Hb', 'WBC', 'PLT', 'Reti%']
+        available_features = [f for f in clinical_features if f in data.columns]
+        if not available_features:
+            raise ValueError("No expected clinical features were found in the classification dataset")
         
         # Run validation
         print("🏥 Running cross-institutional validation...")
-        validation_results = validator.run_validation(data)
+        validator.run_stage1_validation(df_internal, df_external, available_features, 'binary')
+        validator.run_stage1_validation(df_internal, df_external, available_features, 'multiclass')
+        validator.run_stage2_validation(df_external, available_features, 'binary')
+        validator.run_stage2_validation(df_external, available_features, 'multiclass')
         
         # Generate report
         results_dir = Path('results')
         results_dir.mkdir(exist_ok=True)
-        validator.generate_report(validation_results, results_dir)
+        validator.generate_report(results_dir / "cross_dataset_validation_report.txt")
         
         print("✅ Institutional validation completed successfully!")
         return True
@@ -146,25 +178,37 @@ def run_comprehensive_modeling():
     try:
         # Import required modules
         from comprehensive_modeling import ComprehensiveModeling
-        from utils.data_loader import MekaNetDataLoader
         
         # Load data
         print("📊 Loading dataset for comprehensive modeling...")
-        loader = MekaNetDataLoader('../../data/demo_data/classification.csv')
-        data = loader.load_raw_data()
+        _, data = _load_classification_data()
         
         # Initialize comprehensive modeling
         print("⚙️ Initializing comprehensive modeling framework...")
         modeler = ComprehensiveModeling()
+
+        clinical_features = ['sex', 'age', 'Hb', 'WBC', 'PLT', 'Reti%']
+        available_clinical = [f for f in clinical_features if f in data.columns]
+        if not available_clinical:
+            raise ValueError("No expected clinical features were found in the classification dataset")
+
+        feature_sets = {
+            'binary_optimal': [f for f in ['PLT', 'Hb'] if f in data.columns],
+            'multiclass_optimal': [f for f in ['Hb'] if f in data.columns],
+            'clinical_comprehensive': available_clinical,
+        }
+        feature_sets = {name: features for name, features in feature_sets.items() if features}
         
         # Run comprehensive analysis
         print("🔬 Running comprehensive modeling analysis...")
-        modeling_results = modeler.run_analysis(data)
+        modeler.tier1_performance_excellence(data, feature_sets)
+        modeler.tier2_clinical_interpretability(data, available_clinical)
+        modeler.tier3_cross_dataset_robustness(data, available_clinical)
         
         # Generate report
         results_dir = Path('results')
         results_dir.mkdir(exist_ok=True)
-        modeler.generate_report(modeling_results, results_dir)
+        modeler.generate_comprehensive_report(results_dir / "three_tier_modeling_report.txt")
         
         print("✅ Comprehensive modeling completed successfully!")
         return True

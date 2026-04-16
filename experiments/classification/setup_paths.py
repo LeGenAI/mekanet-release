@@ -26,12 +26,12 @@ def setup_paths():
     # Get current script directory
     current_dir = Path(__file__).parent
     
+    project_root = current_dir.parent.parent
+
     # Define paths to add to sys.path
     paths_to_add = [
+        str(project_root),
         str(current_dir),  # classification folder
-        str(current_dir.parent.parent / "mekanet_excellence_framework"),  # config parent folder
-        str(current_dir / "utils"),  # utils folder
-        str(current_dir / "experiments")  # experiments folder
     ]
     
     # Add paths to sys.path if they exist
@@ -58,36 +58,22 @@ def verify_imports():
     """
     print("\n🔍 Verifying module imports...")
     
-    # Test core configuration imports
+    # Test local experiment imports
     try:
-        from config.experiment_config import EXPERIMENT_CONFIG, FEATURE_CATEGORIES, FEATURE_COSTS
-        print("✅ Configuration import successful")
+        from rfecv_feature_selection import RFECVFeatureSelector
+        from institutional_validation import InstitutionalValidator
+        from comprehensive_modeling import ComprehensiveModeling
+        print("✅ Classification module imports successful")
     except ImportError as e:
-        print(f"❌ Configuration import failed: {e}")
+        print(f"❌ Classification module imports failed: {e}")
         return False
     
-    # Test data loading utilities
+    # Test package-level imports that should remain available without detection deps
     try:
-        from utils.data_loader import MekaNetDataLoader
-        print("✅ Data loader import successful")
+        from mekanet import FeatureExtractor, MPNClassifier, calculate_metrics
+        print("✅ Core package imports successful")
     except ImportError as e:
-        print(f"❌ Data loader import failed: {e}")
-        return False
-    
-    # Test statistical utilities
-    try:
-        from utils.statistical_utils import calculate_confidence_intervals, bootstrap_metric
-        print("✅ Statistical utilities import successful")
-    except ImportError as e:
-        print(f"❌ Statistical utilities import failed: {e}")
-        return False
-    
-    # Test visualization utilities
-    try:
-        from utils.visualization_utils import create_performance_plots
-        print("✅ Visualization utilities import successful")
-    except ImportError as e:
-        print(f"❌ Visualization utilities import failed: {e}")
+        print(f"❌ Core package import failed: {e}")
         return False
     
     print("🎉 All module imports verified successfully!")
